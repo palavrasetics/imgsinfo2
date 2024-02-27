@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<title>Carrossel de Imagens com Texto</title>
+<style>
+  .carousel { position: relative; width: 100%; max-width: 600px; margin: auto; overflow: hidden; }
+  .carousel-item { display: none; position: absolute; width: 100%; }
+  .carousel-item.active { display: block; }
+  .carousel-item img { width: 100%; height: auto; }
+  .text-overlay { position: absolute; bottom: 10px; left: 0; width: 100%; text-align: center; color: #fff; font-size: 20px; display: none; }
+  .carousel:hover .text-overlay { display: block; }
+</style>
+</head>
+<body>
+
+<div class="carousel">
+  <div class="carousel-item active" data-text="Texto para a imagem 1"><img src="URL_DA_IMAGEM_1.jpg">
+    <div class="text-overlay">Texto 1</div>
+  </div>
+  <div class="carousel-item" data-text="Texto para a imagem 2"><img src="URL_DA_IMAGEM_2.jpg">
+    <div class="text-overlay">Texto 2</div>
+  </div>
+  <!-- Adicione mais itens aqui conforme necessário -->
+</div>
+
+<script>
+let currentIndex = 0;
+
+function showNextImage() {
+  const items = document.querySelectorAll('.carousel-item');
+  const totalItems = items.length;
+  items[currentIndex].classList.remove('active');
+  
+  currentIndex = (currentIndex + 1) % totalItems; // Volta ao início após o último
+  items[currentIndex].classList.add('active');
+}
+
+// Altere 3000 (3 segundos) para o intervalo de tempo desejado
+setInterval(showNextImage, 3000);
+
+// Mostrar texto ao passar o mouse
+document.querySelectorAll('.carousel-item').forEach(item => {
+  item.addEventListener('mouseover', function() {
+    const text = this.getAttribute('data-text');
+    this.querySelector('.text-overlay').innerText = text;
+  });
+});
+</script>
+
+</body>
+</html>
